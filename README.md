@@ -97,6 +97,6 @@ jupyter notebook mobile_games_ab_testing.ipynb
 - **Data Cleaning**: Outlier detection in real-world messy data.
 - **Business Communication**: Translating "$p$-values" into "Revenue Risk".
 
-**Author**: Pankaj Kapri 
+**Author**: Pankaj 
 
 **Dataset Source**: Kaggle
