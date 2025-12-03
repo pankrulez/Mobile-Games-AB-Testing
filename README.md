@@ -80,9 +80,8 @@ The "Hedonic Adaptation" theory likely applies here: forcing a break earlier (Le
 ## 💻 How to Run
 
 1. **Clone the repo:**
-   ```bash
-   git clone [https://github.com/pankrulez/mobile-games-ab-testing.git](https://github.com/pankrulez/mobile-games-ab-testing.git)
 
+   git clone [https://github.com/pankrulez/mobile-games-ab-testing.git](https://github.com/pankrulez/mobile-games-ab-testing.git)
 ### Install dependencies:
 ```
 pip install pandas numpy seaborn scipy statsmodels
