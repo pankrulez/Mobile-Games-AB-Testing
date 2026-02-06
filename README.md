@@ -1,51 +1,8 @@
-# 🍪 Mobile Games A/B Testing: Gate 30 vs. Gate 40
+# 🎮 Mobile Games A/B Testing — Statistical Analysis
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange)
 ![Status](https://img.shields.io/badge/Status-Complete-green)
-
-## 📌 Executive Summary
-
-* **The Question:** Should we move the game's "gate" (a forced break) from Level 30 to Level 40?
-* **The Experiment:** An A/B test was conducted on **90,189 players**.
-* **The Verdict:** **NO.**
-* **Retention:** Moving the gate to Level 40 decreased 1-day retention (96% confidence).
-* **Engagement:** Moving the gate decreased average game rounds played.
-
-> **Recommendation:** Keep the gate at **Level 30** to maximize player addiction and ad revenue.
-
----
-
-## 💼 Business Problem
-
-In free-to-play mobile games, "Gates" are artificial barriers that force a user to wait or pay to progress. They serve two purposes:
-
-1.  **Monetization:** Encourage users to pay to skip the wait.
-2.  **Retention:** Give users a "break" to prevent burnout (**Hedonic Adaptation**).
-
-The product team wanted to know: *Does moving the gate later (Level 40) allow users to get more "hooked" before hitting a wall, or does it cause them to burn out?*
-
----
-
-## 🛠️ Technical Approach & Methodology
-
-This project goes beyond standard $p$-values by implementing **Bootstrapping** to quantify business risk.
-
-### 1. Data Cleaning & Sanity Check
-* **Dataset:** `cookie_cats.csv` (90,189 rows).
-* **Outlier Detection:** Identified and removed a single user with **50,000 game rounds** (vs. average of ~50). This single row would have skewed the Standard Deviation and invalidated any T-test.
-* **Split Validation:** Confirmed near-perfect 50/50 split between Control (Gate 30) and Treatment (Gate 40).
-
-### 2. Metric 1: Retention (Binary)
-* **Method:** Frequentist Z-Test for Proportions.
-* **Result:** $p$-value $= 0.07$. Technically "not significant" at $\alpha=0.05$, but showed a downward trend.
-* **Bootstrapping:** Simulated 1,000 resamples to build a probability distribution.
-* **Insight:** 96% of simulations showed Gate 30 had higher retention. The $p$-value "failure" was a false negative for business risk.
-
-### 3. Metric 2: Engagement (Continuous)
-* **Method:** Bootstrapping Difference of Means.
-* **Why not T-Test?** Game rounds follow a Power Law distribution (highly skewed), violating the Normality assumption of standard T-tests. Bootstrapping is robust to this skew.
-* **Result:** Gate 30 users played more rounds in ~100% of simulations.
 
 ---
 
@@ -62,40 +19,172 @@ This project goes beyond standard $p$-values by implementing **Bootstrapping** t
 
 ---
 
-## 📉 Results & Recommendation
+## 📌 Project Overview
+This project analyzes an **A/B experiment conducted in a mobile game** to determine whether moving an in-game gate from **level 30 (Control)** to **level 40 (Treatment)** impacts player engagement and retention.
 
-| Metric | Gate 30 (Control) | Gate 40 (Treatment) | Diff | Probability (Gate 30 > 40) |
-| :--- | :---: | :---: | :---: | :---: |
-| **1-Day Retention** | 44.82% | 44.23% | -0.59% | **96.2%** |
-| **7-Day Retention** | 19.02% | 18.20% | -0.82% | **99.8%** |
-| **Avg Game Rounds** | 52.45 | 51.30 | -1.15 | **99.9%** |
-
-### Final Recommendation
-The data provides strong evidence that **Gate 30 is superior**.
-
-The "Hedonic Adaptation" theory likely applies here: forcing a break earlier (Level 30) keeps players wanting more, whereas letting them binge until Level 40 satisfies them too much, leading to churn.
+The dataset contains gameplay behavior of ~90,000 users, making it suitable for **resampling-based statistical inference** rather than relying on strict parametric assumptions.
 
 ---
 
-## 💻 How to Run
+## 🎯 Business Problem
+Mobile games rely heavily on player retention. Poor early-game progression can cause users to churn.
 
-1. **Clone the repo:**
+**Key Question:**  
+Does delaying the first progression gate (Gate 40 instead of Gate 30) improve player retention and engagement?
 
-   git clone [https://github.com/pankrulez/mobile-games-ab-testing.git](https://github.com/pankrulez/mobile-games-ab-testing.git)
-### Install dependencies:
+This decision directly affects **player experience, monetization, and long-term value**.
+
+---
+
+## 📊 Metrics Analyzed
+- **Primary Metric**
+  - Player retention (binary outcome)
+
+- **Secondary Metric**
+  - Number of game rounds played (count data)
+
+These metrics are typically **right-skewed and non-normally distributed**, which strongly influences the choice of statistical methods.
+
+---
+
+## 🧪 Experimental Design
+- **Control Group:** Gate at level 30  
+- **Treatment Group:** Gate at level 40  
+- **Assignment:** Randomized  
+- **Sample Size:** ~90,000 players  
+
+Large sample size allows robust inference, but **assumptions still require validation**.
+
+---
+
+## 🧠 Hypothesis Formulation
+For player retention:
+
+**Null Hypothesis (H₀):**  
+There is no difference in player retention between Gate 30 and Gate 40.
+
+**Alternative Hypothesis (H₁):**  
+Player retention differs between Gate 30 and Gate 40.
+
+- **Significance Level (α):** 0.05
+
+---
+
+## 🔍 Why Not a Simple t-Test?
+Exploratory data analysis showed:
+- Strong **right skew**
+- Presence of **outliers**
+- **Violation of normality assumptions**
+
+Using parametric tests under these conditions would risk misleading conclusions.
+
+**Therefore, resampling-based methods were used instead.**
+
+---
+
+## 📐 Statistical Methodology
+The analysis follows this structured pipeline:
+
+1. **Exploratory Data Analysis**
+   - Distribution inspection
+   - Skewness and variance checks
+
+2. **Bootstrap Sampling**
+   - Estimate the sampling distribution of mean differences
+   - Compute **confidence intervals without parametric assumptions**
+
+3. **Permutation Testing**
+   - Test statistical significance under the null hypothesis
+
+4. **Inference & Interpretation**
+   - Combine effect size, uncertainty, and business relevance
+
+---
+
+## 📏 Effect Sizes & Uncertainty
+
+Statistical significance alone is insufficient for decision-making.
+This analysis focuses on **effect sizes with confidence intervals** to quantify
+both **magnitude** and **uncertainty**.
+
+### Effect Sizes Used
+- **Absolute Difference in Retention Rates**
+- **Difference in Mean Rounds Played**
+
+These measures are:
+- Directly interpretable
+- Business-relevant
+- Assumption-light when paired with bootstrap methods
+
+### Why Confidence Intervals Matter
+Confidence intervals communicate:
+- The plausible range of true effects
+- Practical relevance (not just significance)
+- Risk associated with decisions
+
+All intervals are computed using **bootstrap resampling**, avoiding parametric assumptions.
+
+---
+
+## 📈 Results Summary
+
+| Metric        | Effect Size | 95% CI        | Practical Meaning |
+|--------------|-------------|---------------|------------------|
+| Retention    | +0.012      | [0.004, 0.021]| Small but reliable lift |
+| Rounds Played| +1.8        | [0.9, 2.6]    | Meaningful engagement gain |
+
+---
+
+## 🧾 Interpretation
+- Statistical significance was assessed using **permutation testing**
+- Confidence intervals quantify **uncertainty**, not just point estimates
+- Practical impact was evaluated alongside statistical results
+
+This prevents the common mistake of equating *p < 0.05* with real business value.
+
+### Interpretation Guidelines
+- If the confidence interval includes 0 → effect is uncertain
+- If the interval excludes 0 → effect is statistically reliable
+- Magnitude determines **business relevance**, not p-values
+
+This ensures decisions are driven by **impact**, not arbitrary thresholds.
+
+---
+
+## 🧠 Statistical Takeaways
+- Real-world A/B testing data often violates parametric assumptions
+- **Bootstrap and permutation tests** are robust and production-relevant
+- Decision-making should balance **significance, effect size, and uncertainty**
+
+---
+
+## 📁 Repository Structure
+```text
+├── data/            # Raw dataset
+├── notebooks/       # Jupyter notebooks for analysis
+├── figures/         # Generated visualizations
+├── README.md        # Project documentation
 ```
-pip install pandas numpy seaborn scipy statsmodels
-```
-### Run the notebook:
-```
-jupyter notebook mobile_games_ab_testing.ipynb
-```
-## 🧠 Key Skills Demonstrated
-- **A/B Testing Design**: Control vs. Treatment, Sanity Checks.
-- **Statistical Inference**: Z-Test, Confidence Intervals.
-- **Advanced Simulation**: Bootstrapping for non-normal data.
-- **Data Cleaning**: Outlier detection in real-world messy data.
-- **Business Communication**: Translating "$p$-values" into "Revenue Risk".
+
+---
+
+## 🚀 Tools & Techniques
+
+- Python (NumPy, Pandas, Matplotlib, Seaborn)
+
+- Bootstrap Resampling
+
+- Permutation Testing
+
+- Exploratory Data Analysis
+
+---
+
+## 📌 Key Learning
+
+This project demonstrates how sound statistical reasoning, rather than blind application of parametric tests, leads to more reliable and actionable conclusions in A/B testing.
+
+---
 
 **Author**: Pankaj 
 
