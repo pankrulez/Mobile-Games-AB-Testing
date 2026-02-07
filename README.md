@@ -73,230 +73,102 @@ Using parametric tests under these conditions would risk misleading conclusions.
 
 ---
 
-## 📐 Statistical Methodology
-The analysis follows this structured pipeline:
+## 🧠 Statistical Framework & Methodological Summary
 
-1. **Exploratory Data Analysis**
-   - Distribution inspection
-   - Skewness and variance checks
-
-2. **Bootstrap Sampling**
-   - Estimate the sampling distribution of mean differences
-   - Compute **confidence intervals without parametric assumptions**
-
-3. **Permutation Testing**
-   - Test statistical significance under the null hypothesis
-
-4. **Inference & Interpretation**
-   - Combine effect size, uncertainty, and business relevance
+This project applies a **multi-method statistical framework** to evaluate the causal
+impact of moving an in-game gate from level 30 to level 40. Each method addresses a
+different aspect of uncertainty and decision-making in real-world experimentation.
 
 ---
 
-## 📏 Effect Sizes & Uncertainty
+### Frequentist Inference (Resampling-Based)
 
-Statistical significance alone is insufficient for decision-making.
-This analysis focuses on **effect sizes with confidence intervals** to quantify
-both **magnitude** and **uncertainty**.
+Frequentist analysis is conducted using **bootstrap confidence intervals** and
+**permutation testing** rather than parametric tests. This choice avoids reliance on
+normality assumptions, which are frequently violated in behavioral game data.
 
-### Effect Sizes Used
-- **Absolute Difference in Retention Rates**
-- **Difference in Mean Rounds Played**
+- Bootstrap confidence intervals quantify **effect size uncertainty**
+- Permutation tests provide **exact, assumption-light p-values**
+- Results are interpreted using both statistical and practical significance
 
-These measures are:
-- Directly interpretable
-- Business-relevant
-- Assumption-light when paired with bootstrap methods
-
-### Why Confidence Intervals Matter
-Confidence intervals communicate:
-- The plausible range of true effects
-- Practical relevance (not just significance)
-- Risk associated with decisions
-
-All intervals are computed using **bootstrap resampling**, avoiding parametric assumptions.
+This ensures inference remains robust under skewed and heavy-tailed distributions.
 
 ---
 
-## 🔁 Permutation Testing for Hypothesis Validation
+### Bayesian Inference (Probabilistic Decision-Making)
 
-To formally test the null hypothesis, this analysis uses **permutation testing**.
+To complement frequentist results, Bayesian A/B testing is performed using a
+**Beta-Binomial model** for binary retention outcomes.
 
-### Why Permutation Tests?
-Permutation tests evaluate the null hypothesis that **group labels do not matter**.
-They:
-- Require minimal assumptions
-- Work with skewed and non-normal data
-- Produce exact (simulation-based) p-values
+Bayesian analysis answers questions of the form:
+> *“What is the probability that Gate 40 improves retention?”*
 
-This makes them ideal for real-world A/B testing scenarios.
+Posterior distributions and credible intervals are reported separately for:
+- **Day-1 retention** (early engagement)
+- **Day-7 retention** (sustained engagement)
 
----
-
-## ⚡ Power Analysis & Minimum Detectable Effect (MDE)
-
-Statistical significance alone does not guarantee a well-designed experiment.
-This project evaluates whether the experiment had sufficient **power** to detect
-meaningful effects.
-
-### Key Concepts
-- **Statistical Power:** Probability of detecting a true effect
-- **Minimum Detectable Effect (MDE):** Smallest effect size that can be reliably detected
-- **Target Power:** 80%
-
-Power analysis ensures that null results are interpreted correctly and that
-significant findings are not artifacts of underpowered experiments.
-
-### Interpretation
-- Effects smaller than the MDE may go undetected
-- Non-significant results do not imply absence of effect
-- Observed effects larger than the MDE can be trusted with high confidence
-
-This prevents misinterpretation of null results and
-supports evidence-based decision-making.
-
-### Power Analysis Design Choice
-
-Initial power analysis was implemented using nested permutation tests to closely mirror the hypothesis-testing procedure. While statistically valid, this approach was computationally prohibitive due to the large sample size and the need for repeated simulations. To balance statistical rigor with practical feasibility, power was instead estimated using **bootstrap-based confidence intervals**. This method remains assumption-light, aligns with the primary analysis strategy, and provides a reliable estimate of the minimum detectable effect while keeping runtime tractable. This trade-off reflects real-world experimentation practice, where methodological soundness must be balanced with computational efficiency.
-
-### Power Computation Optimization
-
-Initial power simulations on raw observations were computationally expensive
-due to the large sample size. Since power depends on the sampling distribution
-of the mean rather than individual observations, power was estimated using
-bootstrap simulations on summary statistics (mean, variance, sample size).
-This approach is standard in large-scale experimentation and provides accurate
-power estimates while remaining computationally efficient.
+This probabilistic framing is often more intuitive for product decision-making than
+binary hypothesis tests.
 
 ---
 
-## ⏱ Sequential Testing & Peeking Bias
+### Power Analysis & Minimum Detectable Effect
 
-In real product experiments, results are often monitored continuously.
-Stopping an experiment early after observing significance is known as **peeking**.
+Power analysis is used to evaluate whether the experiment was capable of detecting
+meaningful effects. Due to the large sample size, power was estimated using
+**bootstrap simulations on summary statistics** (mean, variance, sample size) rather
+than raw observations.
 
-Peeking inflates the **Type I error rate**, leading to false discoveries and
-overconfident product decisions.
+This approach:
+- Accurately approximates the sampling distribution of the mean
+- Remains statistically valid under large-sample conditions
+- Keeps computation tractable for practical experimentation workflows
 
-### Why Peeking Is a Problem
-Each interim look at the data increases the probability of a false positive.
-
-For example:
-- α = 0.05 at one look → 5% false positive rate
-- α = 0.05 at multiple looks → much higher false positive rate
-
-Therefore, naive repeated testing breaks hypothesis validity.
-
-### Peeking Bias Simulation
-
-To demonstrate Type-I error inflation from repeated peeking,
-false positive rates were simulated directly from the null
-distribution of the test statistic. Since peeking bias depends
-on repeated hypothesis testing rather than raw observations,
-this approach is mathematically equivalent and computationally
-efficient. Results show substantial inflation of false positives
-when experiments are monitored continuously without correction.
+Minimum Detectable Effect (MDE) estimates help distinguish between
+*true null effects* and *insufficient experimental sensitivity*.
 
 ---
 
-## 🧠 Bayesian Retention Analysis (Day-1 vs Day-7)
+### Sequential Testing & Peeking Bias
 
-Bayesian A/B tests were conducted separately for **Day-1** and **Day-7** retention
-using a Beta-Binomial model with non-informative priors.
+Real-world experiments are often monitored continuously. To demonstrate the risks of
+this practice, **peeking bias** was simulated by repeatedly evaluating test statistics
+under the null hypothesis.
 
-| Metric | P(Treatment > Control) | Interpretation |
-|------|------------------------|----------------|
-| Day-1 Retention | 0.03647 | Early engagement effect |
-| Day-7 Retention | 0.00098 | Longer-term retention effect |
+Results show that repeated interim testing without correction can dramatically inflate
+Type-I error rates, leading to false discoveries.
 
-### Interpretation
-- Day-1 retention reflects immediate onboarding friction
-- Day-7 retention captures sustained engagement
-- Posterior probabilities quantify confidence in treatment superiority
-- Credible intervals communicate uncertainty directly
-
-This probabilistic framing enables more intuitive decision-making
-than binary significance thresholds.
+This highlights the importance of:
+- Predefined stopping rules
+- Fixed-horizon tests
+- Interpreting results in the context of experimental governance
 
 ---
 
-## 📈 Results Summary
+### Causal Interpretation & Limitations
 
-| Metric        | Effect Size | 95% CI        | Practical Meaning |
-|--------------|-------------|---------------|------------------|
-| Retention    | +0.012      | [0.004, 0.021]| Small but reliable lift |
-| Rounds Played| +1.8        | [0.9, 2.6]    | Meaningful engagement gain |
+Randomized assignment allows estimation of the **average causal effect** of gate
+placement under standard assumptions (randomization, SUTVA, consistent measurement).
+However, results are subject to limitations such as:
 
----
+- Survivorship and dilution effects (not all users reach the gate)
+- External validity constraints (results may not generalize across games or cohorts)
 
-## 🧾 Interpretation
-- Statistical significance was assessed using **permutation testing**
-- Confidence intervals quantify **uncertainty**, not just point estimates
-- Practical impact was evaluated alongside statistical results
-
-This prevents the common mistake of equating *p < 0.05* with real business value.
-
-### Interpretation Guidelines
-- If the confidence interval includes 0 → effect is uncertain
-- If the interval excludes 0 → effect is statistically reliable
-- Magnitude determines **business relevance**, not p-values
-
-This ensures decisions are driven by **impact**, not arbitrary thresholds.
+Conclusions are therefore framed conservatively, with clear boundaries on what the
+experiment can and cannot establish.
 
 ---
 
-## 🧠 Statistical Takeaways
-- Real-world A/B testing data often violates parametric assumptions
-- **Bootstrap and permutation tests** are robust and production-relevant
-- Decision-making should balance **significance, effect size, and uncertainty**
+### Summary
 
----
+By combining **frequentist inference**, **Bayesian reasoning**, **power analysis**, and
+**experiment design diagnostics**, this project demonstrates how statistically sound
+and practically scalable A/B testing should be conducted in production environments.
 
-## 🎯 Causal Interpretation & Limitations
-
-This experiment uses randomized assignment, allowing estimation of
-the **average causal effect** of moving the gate from level 30 to level 40.
-
-However, causal conclusions are only valid under specific assumptions.
-
-### Required Assumptions
-- **Random Assignment:** Users are randomly allocated to variants
-- **Stable Unit Treatment Value Assumption (SUTVA):** No interference between users
-- **No Differential Attrition:** Dropout is not variant-dependent
-- **Consistent Metric Measurement:** Retention is measured identically across groups
-
-### Threats to Validity
-
-**Internal Validity Risks**
-- Players may drop out before reaching the gate
-- Early churn unrelated to gate placement may dilute effects
-
-**External Validity Risks**
-- Results may not generalize to:
-  - Other game genres
-  - Different player demographics
-  - Monetization-heavy environments
-
-### Survivorship & Dilution Effects
-Only a subset of players reach the gate.
-This may dilute the estimated effect when analyzing the full population.
-
-Segmented analysis or triggered experiments
-may yield stronger causal signals.
-
-### What We Can Conclude
-- The average effect of gate placement on retention
-- Direction and magnitude of engagement changes
-
-### What We Cannot Conclude
-- Individual-level behavior changes
-- Long-term monetization impact
-- Effects under different onboarding flows
-
-### Recommendations
-- If the effect exceeds the MDE and is practically meaningful,
-  consider rolling out Gate 40 gradually
-- Monitor long-term retention and monetization post-launch
-- Run follow-up experiments targeting players who reach the gate
+The emphasis throughout is on:
+- Effect sizes over p-values
+- Uncertainty over point estimates
+- Decision quality over mechanical testing
 
 ---
 
