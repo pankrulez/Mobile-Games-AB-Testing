@@ -56,6 +56,27 @@ export default function Home() {
           />
         </section>
 
+        {/* Distribution Plot */}
+        <section className="mt-8">
+          <h3 className="mb-2 text-sm font-medium text-slate-700">
+            Outcome Distribution
+          </h3>
+
+          <div className="rounded-lg border bg-white p-4">
+            <img
+              src={`/plots/${metricKey}_distribution.png`}
+              alt={`${metric.metric} distribution`}
+              className="mx-auto max-w-full"
+            />
+          </div>
+
+          <p className="mt-2 text-xs text-slate-500">
+            Distributions shown are based on observed outcomes in control and treatment
+            groups. Visual inspection helps validate non-normality and motivates the
+            use of resampling-based inference methods.
+          </p>
+        </section>
+
         {/* Explanation Callout */}
         <section className="mt-10 rounded-lg border bg-slate-50 p-4 text-sm text-slate-600">
           <strong>Note:</strong> Results shown here are precomputed.
