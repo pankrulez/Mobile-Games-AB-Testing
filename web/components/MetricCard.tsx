@@ -11,36 +11,40 @@ export default function MetricCard({
   ci,
   prob
 }: MetricProps) {
+  const positive = effect > 0;
+
   return (
-  <div className="rounded-xl border bg-white p-6 shadow-sm transition hover:shadow-md">
-    <div className="flex items-center justify-between">
+    <div className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+      {/* Accent strip */}
+      <div
+        className={`absolute inset-x-0 top-0 h-1 ${
+          positive ? "bg-emerald-500" : "bg-rose-500"
+        }`}
+      />
+
       <h3 className="text-sm font-medium text-slate-500">{title}</h3>
-      <span className="text-xs rounded-full bg-slate-100 px-2 py-1 text-slate-600">
-        Retention
-      </span>
-    </div>
 
-    <div className="mt-4 text-3xl font-semibold text-slate-900">
-      +{effect.toFixed(3)}
-    </div>
+      <div className="mt-4 flex items-end gap-3">
+        <div className="text-4xl font-semibold tracking-tight">
+          +{effect.toFixed(3)}
+        </div>
+        <span className="mb-1 text-sm text-slate-500">
+          lift
+        </span>
+      </div>
 
-    <div className="mt-1 text-sm text-slate-500">
-      Effect size (Treatment − Control)
-    </div>
+      <div className="mt-3 text-sm text-slate-600">
+        95% CI: [{ci[0].toFixed(3)}, {ci[1].toFixed(3)}]
+      </div>
 
-    <div className="mt-4 text-sm text-slate-700">
-      <span className="font-medium">95% CI:</span>{" "}
-      [{ci[0].toFixed(3)}, {ci[1].toFixed(3)}]
+      <div className="mt-5 flex items-center justify-between rounded-lg bg-slate-50 px-4 py-3 text-sm">
+        <span className="text-slate-600">
+          P(Treatment &gt; Control)
+        </span>
+        <span className="font-semibold text-slate-900">
+          {(prob * 100).toFixed(1)}%
+        </span>
+      </div>
     </div>
-
-    <div className="mt-3 flex items-center justify-between text-sm">
-      <span className="text-slate-600">
-        Bayesian P(Treatment &gt; Control)
-      </span>
-      <span className="font-semibold text-slate-900">
-        {(prob * 100).toFixed(1)}%
-      </span>
-    </div>
-  </div>
   );
 }

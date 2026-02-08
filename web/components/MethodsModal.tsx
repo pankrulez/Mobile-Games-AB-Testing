@@ -7,8 +7,8 @@ export default function MethodsModal({ isOpen, onClose }: MethodsModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="max-h-[90vh] w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
         <div className="flex items-start justify-between">
           <h2 className="text-lg font-semibold text-slate-900">
             Statistical Methods
@@ -21,14 +21,14 @@ export default function MethodsModal({ isOpen, onClose }: MethodsModalProps) {
           </button>
         </div>
 
-        <div className="mt-4 space-y-4 text-sm text-slate-700">
+        <div className="mt-4 space-y-4 text-sm text-slate-700 shadow-sm hover:shadow-md transition-shadow">
           <p>
             This experiment evaluates the causal impact of moving a progression
             gate from level 30 to level 40 using randomized A/B testing.
           </p>
 
           <div>
-            <h3 className="font-medium text-slate-900">
+            <h3 className="font-medium text-slate-900 shadow-sm hover:shadow-md transition-shadow">
               Bootstrap Confidence Intervals
             </h3>
             <p>
@@ -39,7 +39,7 @@ export default function MethodsModal({ isOpen, onClose }: MethodsModalProps) {
           </div>
 
           <div>
-            <h3 className="font-medium text-slate-900">
+            <h3 className="font-medium text-slate-900 shadow-sm hover:shadow-md transition-shadow">
               Permutation Testing
             </h3>
             <p>
@@ -50,7 +50,7 @@ export default function MethodsModal({ isOpen, onClose }: MethodsModalProps) {
           </div>
 
           <div>
-            <h3 className="font-medium text-slate-900">
+            <h3 className="font-medium text-slate-900 shadow-sm hover:shadow-md transition-shadow">
               Bayesian A/B Testing
             </h3>
             <p>
@@ -61,7 +61,7 @@ export default function MethodsModal({ isOpen, onClose }: MethodsModalProps) {
           </div>
 
           <div>
-            <h3 className="font-medium text-slate-900">
+            <h3 className="font-medium text-slate-900 shadow-sm hover:shadow-md transition-shadow">
               Power Analysis & Peeking Bias
             </h3>
             <p>
@@ -71,7 +71,7 @@ export default function MethodsModal({ isOpen, onClose }: MethodsModalProps) {
             </p>
           </div>
 
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 shadow-sm hover:shadow-md transition-shadow">
             All computationally intensive analyses are executed offline and
             documented in the GitHub repository.
           </p>

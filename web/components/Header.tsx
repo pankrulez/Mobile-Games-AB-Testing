@@ -1,13 +1,19 @@
 export default function Header() {
   return (
-    <header className="border-b bg-white">
-      <div className="mx-auto max-w-5xl px-6 py-4">
-        <h1 className="text-xl font-semibold">
-          Mobile Games A/B Testing
-        </h1>
-        <p className="text-sm text-slate-500">
-          Statistical evaluation of gate placement experiment
-        </p>
+    <header className="sticky top-0 z-40 backdrop-blur bg-white/70">
+      <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
+        <div>
+          <h1 className="text-lg font-semibold tracking-tight">
+            Mobile Games A/B Testing
+          </h1>
+          <p className="text-xs text-slate-500">
+            Experiment results & statistical analysis
+          </p>
+        </div>
+
+        <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
+          Experiment Demo
+        </span>
       </div>
     </header>
   );

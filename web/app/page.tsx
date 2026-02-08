@@ -18,7 +18,7 @@ export default function Home() {
     <>
       <Header />
 
-      <main className="mx-auto max-w-5xl px-6 py-8">
+      <main className="mx-auto max-w-6xl px-6 py-12">
         {/* Intro */}
         <section className="mb-8">
           <h2 className="text-lg font-semibold text-slate-900">
