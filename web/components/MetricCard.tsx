@@ -19,42 +19,36 @@ export default function MetricCard({
 
   return (
     <motion.div
-      layout
-      whileHover={{ scale: 1.03 }}
+      whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", stiffness: 260, damping: 22 }}
-      className="relative overflow-hidden rounded-3xl bg-white/70 p-6 shadow-xl ring-1 ring-white/50 backdrop-blur-xl"
+      className="relative rounded-3xl bg-white p-6 shadow-xl ring-1 ring-slate-200"
     >
-      {/* Glow */}
+      {/* Accent strip */}
       <div
-        className={`absolute -top-12 left-1/2 h-28 w-28 -translate-x-1/2 rounded-full blur-3xl opacity-30 ${
-          positive ? "bg-emerald-400" : "bg-rose-400"
+        className={`absolute inset-x-0 top-0 h-1 rounded-t-3xl ${
+          positive ? "bg-emerald-500" : "bg-rose-500"
         }`}
       />
 
-      <h3 className="relative text-sm font-medium text-slate-500">
+      <h3 className="mt-3 text-sm font-semibold text-slate-900">
         {title}
       </h3>
 
-      <div className="relative mt-6 flex items-end gap-3">
-        <motion.span
-          key={effect}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-semibold tracking-tight"
-        >
+      <div className="mt-6 flex items-end gap-3">
+        <span className="text-5xl font-semibold tracking-tight text-slate-900">
           +{effect.toFixed(3)}
-        </motion.span>
-        <span className="mb-2 text-sm text-slate-500">
+        </span>
+        <span className="mb-2 text-sm text-slate-600">
           lift
         </span>
       </div>
 
-      <div className="relative mt-3 text-sm text-slate-600">
+      <div className="mt-3 text-sm text-slate-700">
         95% CI: [{ci[0].toFixed(3)}, {ci[1].toFixed(3)}]
       </div>
 
-      <div className="relative mt-6 flex items-center justify-between rounded-xl bg-white/60 px-4 py-3 text-sm backdrop-blur">
-        <span className="text-slate-600">
+      <div className="mt-6 flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm">
+        <span className="text-slate-700">
           P(Treatment &gt; Control)
         </span>
         <span className="font-semibold text-slate-900">
