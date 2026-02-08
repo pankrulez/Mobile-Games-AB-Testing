@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
@@ -91,9 +92,11 @@ export default function Home() {
               Outcome Distribution
             </h3>
             <div className="rounded-2xl bg-white/70 p-4 shadow-lg backdrop-blur">
-              <img
+              <Image
                 src={`/plots/${metricKey}_distribution.png`}
                 alt="Distribution plot"
+                width={600}
+                height={400}
                 className="mx-auto"
               />
             </div>
