@@ -230,6 +230,15 @@ python run_analysis.py
 
 ---
 
+## Live Demo (Dashboard Branch)
+
+This repository includes a production-style dashboard built with Next.js
+to visualize precomputed experimental results.
+
+👉 Demo: https://your-vercel-url.vercel.app  
+👉 Source: `dashboard-vercel` branch
+---
+
 **Author**: Pankaj 
 
 **Dataset Source**: Kaggle
