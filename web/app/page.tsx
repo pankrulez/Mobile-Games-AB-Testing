@@ -4,6 +4,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import MetricCard from "@/components/MetricCard";
 import results from "@/data/results.json";
+import MethodsModal from "@/components/MethodsModal";
 
 export default function Home() {
   const [metricKey, setMetricKey] = useState<"retention_1" | "retention_7">(
@@ -11,6 +12,7 @@ export default function Home() {
   );
 
   const metric = results[metricKey];
+  const [showMethods, setShowMethods] = useState(false);
 
   return (
     <>
@@ -45,6 +47,14 @@ export default function Home() {
             <option value="retention_7">Day-7 Retention</option>
           </select>
         </section>
+
+        <button
+          onClick={() => setShowMethods(true)}
+          className="mt-2 text-sm text-slate-600 underline hover:text-slate-900"
+        >
+          View statistical methods
+        </button>
+
 
         {/* Metric Card */}
         <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -92,6 +102,12 @@ export default function Home() {
           This dashboard focuses on clarity and decision support rather than
           real-time computation.
         </section>
+
+        <MethodsModal
+          isOpen={showMethods}
+          onClose={() => setShowMethods(false)}
+        />
+
       </main>
     </>
   );
