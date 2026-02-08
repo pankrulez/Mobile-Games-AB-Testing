@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <header className="sticky top-0 z-40 backdrop-blur bg-white/70">
+    <header className="sticky top-0 z-40 border-b border-white/40 bg-white/70 backdrop-blur">
       <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
         <div>
           <h1 className="text-lg font-semibold tracking-tight">
@@ -11,8 +11,8 @@ export default function Header() {
           </p>
         </div>
 
-        <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
-          Experiment Demo
+        <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700">
+          Live Demo
         </span>
       </div>
     </header>
