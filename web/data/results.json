@@ -1,12 +1,16 @@
 {
   "retention_1": {
     "metric": "Day-1 Retention",
+    "control_rate": 0.445,
+    "treatment_rate": 0.457,
     "effect_size": 0.012,
     "ci": [0.004, 0.021],
     "bayesian_prob": 0.96
   },
   "retention_7": {
     "metric": "Day-7 Retention",
+    "control_rate": 0.186,
+    "treatment_rate": 0.204,
     "effect_size": 0.018,
     "ci": [0.006, 0.030],
     "bayesian_prob": 0.98
