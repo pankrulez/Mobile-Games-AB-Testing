@@ -1,40 +1,75 @@
+"use client";
+
+import { useState } from "react";
 import Header from "@/components/Header";
 import MetricCard from "@/components/MetricCard";
 import results from "@/data/results.json";
 
 export default function Home() {
+  const [metricKey, setMetricKey] = useState<"retention_1" | "retention_7">(
+    "retention_1"
+  );
+
+  const metric = results[metricKey];
+
   return (
     <>
       <Header />
 
       <main className="mx-auto max-w-5xl px-6 py-8">
+        {/* Intro */}
         <section className="mb-8">
-          <h2 className="text-lg font-semibold">
+          <h2 className="text-lg font-semibold text-slate-900">
             Experiment Summary
           </h2>
-          <p className="mt-2 text-slate-600 text-sm">
-            This dashboard presents precomputed results from a randomized
-            A/B test evaluating the impact of moving a progression gate
-            from level 30 to level 40.
+          <p className="mt-2 max-w-3xl text-sm text-slate-600">
+            This dashboard presents precomputed results from a randomized A/B test
+            evaluating the impact of moving a progression gate from level 30 to
+            level 40 in a mobile game.
           </p>
         </section>
 
-        <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {Object.values(results).map((r: any) => (
-            <MetricCard
-              key={r.metric}
-              title={r.metric}
-              effect={r.effect_size}
-              ci={r.ci}
-              prob={r.bayesian_prob}
-            />
-          ))}
+        {/* Metric Selector */}
+        <section className="mb-6">
+          <label className="block text-sm font-medium text-slate-700">
+            Retention Metric
+          </label>
+          <select
+            className="mt-2 rounded-md border px-3 py-2 text-sm"
+            value={metricKey}
+            onChange={(e) =>
+              setMetricKey(e.target.value as "retention_1" | "retention_7")
+            }
+          >
+            <option value="retention_1">Day-1 Retention</option>
+            <option value="retention_7">Day-7 Retention</option>
+          </select>
         </section>
 
-        <section className="mt-10 text-sm text-slate-500">
-          Statistical methods (bootstrap, permutation testing,
-          Bayesian inference, power analysis) are documented
-          in the GitHub repository.
+        {/* Metric Card */}
+        <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <MetricCard
+            title={metric.metric}
+            effect={metric.effect_size}
+            ci={metric.ci}
+            prob={metric.bayesian_prob}
+          />
+        </section>
+
+        {/* Explanation Callout */}
+        <section className="mt-10 rounded-lg border bg-slate-50 p-4 text-sm text-slate-600">
+          <strong>Note:</strong> Results shown here are precomputed.
+          Computationally intensive analyses (bootstrap confidence intervals,
+          permutation testing, Bayesian inference, and power analysis) are
+          executed offline and documented in the GitHub repository. This mirrors
+          how experimentation results are typically surfaced in production
+          systems.
+        </section>
+
+        {/* Footer */}
+        <section className="mt-6 text-xs text-slate-500">
+          This dashboard focuses on clarity and decision support rather than
+          real-time computation.
         </section>
       </main>
     </>
