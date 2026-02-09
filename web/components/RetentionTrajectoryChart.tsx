@@ -1,9 +1,9 @@
 "use client";
 
 import ReactECharts from "echarts-for-react";
-import darkSystemTheme from "@/lib/echartsTheme";
-import { retentionTrajectory } from "@/data/retentionTrajectory";
-import { confidence } from "@/data/confidence";
+import darkSystemTheme from "../lib/echartsTheme";
+import { retentionTrajectory } from "../data/retentionTrajectory";
+import { confidence } from "../data/confidence";
 
 export default function RetentionTrajectoryChart() {
   const strongConfidence = confidence.posteriorProbability > 0.95;

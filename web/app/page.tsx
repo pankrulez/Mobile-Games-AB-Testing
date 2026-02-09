@@ -4,14 +4,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import Header from "@/components/Header";
-import MetricCard from "@/components/MetricCard";
-import KpiCard from "@/components/KpiCard";
-import MethodsModal from "@/components/MethodsModal";
-import DiffBarChart from "@/components/DiffBarChart";
-import darkSystemTheme from "@/lib/echartsTheme";
+import Header from "../components/Header";
+import MetricCard from "../components/MetricCard";
+import KpiCard from "../components/KpiCard";
+import MethodsModal from "../components/MethodsModal";
+import DiffBarChart from "../components/DiffBarChart";
 
-import results from "@/data/results.json";
+import results from "../data/results.json";
 
 export default function Home() {
   const [metricKey, setMetricKey] = useState<"retention_1" | "retention_7">(

@@ -1,8 +1,8 @@
 "use client";
 
 import ReactECharts from "echarts-for-react";
-import darkSystemTheme from "@/lib/echartsTheme";
-import { confidence } from "@/data/confidence";
+import darkSystemTheme from "../lib/echartsTheme";
+import { confidence } from "../data/confidence";
 
 interface LiftData {
   day: string;
