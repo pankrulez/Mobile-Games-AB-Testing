@@ -2,36 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================= */
+/* Design Tokens (GAMEPULSE)     */
+/* ============================= */
+
 :root {
   --bg-main: #070b16;
   --bg-panel: #0c1222;
   --bg-card: #11182b;
-  --border-soft: rgba(255,255,255,0.12);
 
   --text-primary: #ffffff;
   --text-secondary: #c7cdea;
   --text-muted: #9aa4c7;
 
   --accent-blue: #8b90ff;
-  --accent-pink: #f472b6;
   --accent-green: #34d399;
+  --accent-pink: #f472b6;
+
+  --border-soft: rgba(255, 255, 255, 0.12);
 }
 
-html, body {
-  background: var(--bg-main);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
+/* ============================= */
+/* Global Base Styles            */
+/* ============================= */
+
+html,
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  height: 100%;
 }
+
+/* ============================= */
+/* Reusable UI Primitives        */
+/* ============================= */
 
 .card {
-  background: radial-gradient(
-    120% 120% at 0% 0%,
-    rgba(255,255,255,0.06),
-    rgba(255,255,255,0.02)
-  );
+  background-color: var(--bg-card);
   border: 1px solid var(--border-soft);
-  border-radius: 20px;
+  border-radius: 1rem;
 }
 
 .heading-xl {
@@ -45,9 +56,10 @@ html, body {
   font-weight: 600;
 }
 
-.heading-sm {
-  font-size: 1rem;
-  font-weight: 600;
+.body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
 }
 
 .caption {

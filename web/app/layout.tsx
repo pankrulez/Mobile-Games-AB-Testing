@@ -1,20 +1,42 @@
 import "./globals.css";
-import Sidebar from "../components/Sidebar";
-import ConfidenceBadge from "../components/ConfidenceBadge";
+import Sidebar from "@/components/Sidebar";
+import ConfidenceBadge from "@/components/ConfidenceBadge";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className="flex">
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only fixed top-2 left-2 z-50 rounded bg-black px-3 py-2 text-white"
-        >
-          Skip to content
-        </a>
+      <body className="flex min-h-screen">
         <Sidebar />
-          <ConfidenceBadge />
-          <main id="main" className="flex-1 px-10 py-8">{children}</main>
+
+        <main id="main" className="flex-1 px-10 py-8">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-xl font-bold tracking-wide">
+                GAMEPULSE
+              </h1>
+              <p className="text-xs text-[var(--text-secondary)]">
+                Mobile Games A/B Testing
+              </p>
+            </div>
+
+            <a
+              href="#"
+              className="text-sm rounded-lg border border-white/10 px-4 py-1.5
+                         hover:bg-white/5 transition"
+            >
+              Live Demo
+            </a>
+          </div>
+
+          {children}
+        </main>
+
+        <ConfidenceBadge />
       </body>
     </html>
   );
