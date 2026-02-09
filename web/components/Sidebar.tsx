@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { tabs } from "../lib/tabs";
+import { tabs } from "@/lib/tabs";
 
 export default function Sidebar() {
   const path = usePathname();
