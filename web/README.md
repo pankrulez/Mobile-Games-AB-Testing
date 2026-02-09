@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎮 Mobile Games A/B Testing — GAMEPULSE Dashboard
+> **A production-style experimentation system showcasing statistical rigor, decision-making, and modern analytics UI.**
 
-## Getting Started
+---
 
-First, run the development server:
+## 📌 Project Overview
+This project analyzes the impact of **moving a progression gate from level 30 to level 40** in a mobile game using a randomized A/B experiment.
+
+Beyond statistical correctness, the goal was to **communicate experimental results the way real product teams consume them** — through a narrative, interactive dashboard rather than static notebooks.
+
+The result is **GAMEPULSE**, a dark, system-style analytics interface inspired by internal experimentation platforms used at large product companies.
+
+---
+
+## 🎯 Experiment Objective
+
+**Hypothesis**  
+Delaying the progression gate would reduce early churn by allowing players to build stronger engagement habits before encountering friction.
+
+**Primary Metrics**
+- Day-1 Retention
+- Day-7 Retention
+
+**Decision Question**  
+Does the treatment meaningfully and reliably outperform control — and should it be shipped?
+
+---
+
+## 🧠 Statistical Approach
+
+This project deliberately avoids “single-test thinking” and instead evaluates results through **multiple complementary lenses**:
+
+### 1. Bootstrap Confidence Intervals
+- Non-parametric estimation of uncertainty  
+- Robust to skewed and binary behavioral data  
+
+### 2. Permutation Testing
+- Label-randomization to assess significance  
+- No reliance on normality assumptions  
+
+### 3. Bayesian Inference (Beta-Binomial)
+- Direct estimation of **P(Treatment > Control)**  
+- Results expressed probabilistically, not just as p-values  
+
+### 4. Power & Peeking Analysis
+- Offline simulation to understand:
+  - minimum detectable effects  
+  - false-positive inflation from repeated peeking  
+
+All computationally intensive analysis is executed **offline** and version-controlled.  
+The dashboard acts purely as a **presentation and decision layer**, mirroring real production experimentation systems.
+
+---
+
+## 🧭 Product-Style Dashboard Design
+
+The UI is intentionally structured as a **narrative analytics system**, not a chart dump.
+
+### Summary — Statistical Journey
+A qualitative walkthrough of the experiment:
+- Hypothesis formulation  
+- Experimental design  
+- Statistical findings  
+- Final recommendation  
+
+This section demonstrates *how* the decision was reached — not just *what* the result was.
+
+### Overview
+An executive snapshot:
+- Control vs Treatment KPIs  
+- Absolute lift  
+- Bayesian confidence score  
+
+Designed for fast decision-making.
+
+### Retention
+Deep behavioral analysis:
+- Daily relative lift (D1–D7)  
+- Retention trajectory curves  
+- Distributional views to justify resampling methods  
+
+Charts are interactive, confidence-aware, and styled to match modern internal analytics tooling.
+
+---
+
+## ✅ Confidence-Driven Decisions
+
+A global **Confidence Score** (Bayesian posterior probability) is surfaced persistently across the app.
+
+Visual semantics adapt to confidence:
+- Strong posterior → green emphasis  
+- Uncertain results → neutral/amber cues  
+
+This reinforces **decision confidence**, not just statistical significance.
+
+---
+
+## ♿ Accessibility & Engineering Discipline
+
+The dashboard includes:
+- WCAG-compliant contrast tuning  
+- Keyboard-navigable sidebar  
+- Screen-reader-aware modals  
+- Color-blind-safe chart encodings  
+
+These choices reflect **production engineering standards**, not portfolio shortcuts.
+
+---
+
+## 🧪 What This Project Demonstrates
+
+- Sound experimental design  
+- Proper uncertainty quantification  
+- Bayesian reasoning  
+- Awareness of peeking bias  
+- Product-oriented communication  
+- Modern analytics UI design  
+- Accessibility and UX maturity  
+
+This is not a “model accuracy” project — it is a **decision-making system**.
+
+---
+
+## 🚀 How to Run
 
 ```bash
+cd web
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The dashboard consumes precomputed results to ensure fast, deterministic rendering.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📎 Notes
 
-## Learn More
+- Tabs render only when data exists — no placeholders.
 
-To learn more about Next.js, take a look at the following resources:
+- No fake monetization or segmentation metrics are included.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- All numbers in the UI are defensible and traceable to analysis code.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📬 Author
 
-## Deploy on Vercel
+Pankaj Kapri
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Data Science & Product Analytics

@@ -15,9 +15,9 @@ export default function MethodsModal({
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="methods-title"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md"
     >
       <motion.div
@@ -27,7 +27,10 @@ export default function MethodsModal({
         className="w-full max-w-2xl rounded-3xl bg-white/80 p-6 shadow-xl backdrop-blur-xl"
       >
         <div className="flex items-start justify-between">
-          <h2 className="text-lg font-semibold tracking-tight">
+          <h2
+            id="methods-title"
+            className="text-lg font-semibold tracking-tight"
+          >
             Statistical Methods
           </h2>
           <button

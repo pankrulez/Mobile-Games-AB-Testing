@@ -1,10 +1,10 @@
+import BayesianValidationCard from "@/components/BayesianValidationCard";
+
 export default function SummaryPage() {
   return (
     <section>
-      <h1 className="text-4xl font-extrabold mb-2">
-        STATISTICAL_JOURNEY
-      </h1>
-      <p className="text-[var(--text-secondary)] mb-10">
+      <h1 className="heading-xl mb-2">STATISTICAL_JOURNEY</h1>
+      <p className="body mb-10">
         End-to-end experiment design and inference
       </p>
 
@@ -61,6 +61,10 @@ export default function SummaryPage() {
             Ship the updated gate placement while monitoring long-term retention
             decay and monetization impact in follow-up experiments.
           </p>
+        </div>
+
+        <div className="mt-10 max-w-xl">
+          <BayesianValidationCard />
         </div>
       </div>
     </section>

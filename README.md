@@ -1,244 +1,148 @@
-# 🎮 Mobile Games A/B Testing — Statistical Analysis
+# 🎮 Mobile Games A/B Testing — GAMEPULSE Dashboard
+> **A production-style experimentation system showcasing statistical rigor, decision-making, and modern analytics UI.**
+
+---
 
 ## 📌 Project Overview
-This project analyzes an **A/B experiment conducted in a mobile game** to determine whether moving an in-game gate from **level 30 (Control)** to **level 40 (Treatment)** impacts player engagement and retention.
+This project analyzes the impact of **moving a progression gate from level 30 to level 40** in a mobile game using a randomized A/B experiment.
 
-The dataset contains gameplay behavior of ~90,000 users, making it suitable for **resampling-based statistical inference** rather than relying on strict parametric assumptions.
+Beyond statistical correctness, the goal was to **communicate experimental results the way real product teams consume them** — through a narrative, interactive dashboard rather than static notebooks.
 
----
-
-## 🎯 Business Problem
-Mobile games rely heavily on player retention. Poor early-game progression can cause users to churn.
-
-**Key Question:**  
-Does delaying the first progression gate (Gate 40 instead of Gate 30) improve player retention and engagement?
-
-This decision directly affects **player experience, monetization, and long-term value**.
+The result is **GAMEPULSE**, a dark, system-style analytics interface inspired by internal experimentation platforms used at large product companies.
 
 ---
 
-## 📊 Metrics Analyzed
-- **Primary Metric**
-  - Player retention (binary outcome)
+## 🎯 Experiment Objective
 
-- **Secondary Metric**
-  - Number of game rounds played (count data)
+**Hypothesis**  
+Delaying the progression gate would reduce early churn by allowing players to build stronger engagement habits before encountering friction.
 
-These metrics are typically **right-skewed and non-normally distributed**, which strongly influences the choice of statistical methods.
+**Primary Metrics**
+- Day-1 Retention
+- Day-7 Retention
 
----
-
-## 🧪 Experimental Design
-- **Control Group:** Gate at level 30  
-- **Treatment Group:** Gate at level 40  
-- **Assignment:** Randomized  
-- **Sample Size:** ~90,000 players  
-
-Large sample size allows robust inference, but **assumptions still require validation**.
+**Decision Question**  
+Does the treatment meaningfully and reliably outperform control — and should it be shipped?
 
 ---
 
-## 🧠 Hypothesis Formulation
-For player retention:
+## 🧠 Statistical Approach
 
-**Null Hypothesis (H₀):**  
-There is no difference in player retention between Gate 30 and Gate 40.
+This project deliberately avoids “single-test thinking” and instead evaluates results through **multiple complementary lenses**:
 
-**Alternative Hypothesis (H₁):**  
-Player retention differs between Gate 30 and Gate 40.
+### 1. Bootstrap Confidence Intervals
+- Non-parametric estimation of uncertainty  
+- Robust to skewed and binary behavioral data  
 
-- **Significance Level (α):** 0.05
+### 2. Permutation Testing
+- Label-randomization to assess significance  
+- No reliance on normality assumptions  
 
-### Hypothesis Test Result
-- **Observed statistic:** Δ̂
-- **Permutation p-value:** p
+### 3. Bayesian Inference (Beta-Binomial)
+- Direct estimation of **P(Treatment > Control)**  
+- Results expressed probabilistically, not just as p-values  
 
-Decision rule:
-- If p < α → Reject H₀
-- If p ≥ α → Fail to reject H₀
+### 4. Power & Peeking Analysis
+- Offline simulation to understand:
+  - minimum detectable effects  
+  - false-positive inflation from repeated peeking  
 
-The conclusion is based on **label exchangeability**, not parametric assumptions.
-
----
-
-## 🔍 Why Not a Simple t-Test?
-Exploratory data analysis showed:
-- Strong **right skew**
-- Presence of **outliers**
-- **Violation of normality assumptions**
-
-Using parametric tests under these conditions would risk misleading conclusions.
-
-**Therefore, resampling-based methods were used instead.**
+All computationally intensive analysis is executed **offline** and version-controlled.  
+The dashboard acts purely as a **presentation and decision layer**, mirroring real production experimentation systems.
 
 ---
 
-## 🧠 Statistical Framework & Methodological Summary
+## 🧭 Product-Style Dashboard Design
 
-This project applies a **multi-method statistical framework** to evaluate the causal
-impact of moving an in-game gate from level 30 to level 40. Each method addresses a
-different aspect of uncertainty and decision-making in real-world experimentation.
+The UI is intentionally structured as a **narrative analytics system**, not a chart dump.
 
----
+### Summary — Statistical Journey
+A qualitative walkthrough of the experiment:
+- Hypothesis formulation  
+- Experimental design  
+- Statistical findings  
+- Final recommendation  
 
-### Frequentist Inference (Resampling-Based)
+This section demonstrates *how* the decision was reached — not just *what* the result was.
 
-Frequentist analysis is conducted using **bootstrap confidence intervals** and
-**permutation testing** rather than parametric tests. This choice avoids reliance on
-normality assumptions, which are frequently violated in behavioral game data.
+### Overview
+An executive snapshot:
+- Control vs Treatment KPIs  
+- Absolute lift  
+- Bayesian confidence score  
 
-- Bootstrap confidence intervals quantify **effect size uncertainty**
-- Permutation tests provide **exact, assumption-light p-values**
-- Results are interpreted using both statistical and practical significance
+Designed for fast decision-making.
 
-This ensures inference remains robust under skewed and heavy-tailed distributions.
+### Retention
+Deep behavioral analysis:
+- Daily relative lift (D1–D7)  
+- Retention trajectory curves  
+- Distributional views to justify resampling methods  
 
----
-
-### Bayesian Inference (Probabilistic Decision-Making)
-
-To complement frequentist results, Bayesian A/B testing is performed using a
-**Beta-Binomial model** for binary retention outcomes.
-
-Bayesian analysis answers questions of the form:
-> *“What is the probability that Gate 40 improves retention?”*
-
-Posterior distributions and credible intervals are reported separately for:
-- **Day-1 retention** (early engagement)
-- **Day-7 retention** (sustained engagement)
-
-This probabilistic framing is often more intuitive for product decision-making than
-binary hypothesis tests.
+Charts are interactive, confidence-aware, and styled to match modern internal analytics tooling.
 
 ---
 
-### Power Analysis & Minimum Detectable Effect
+## ✅ Confidence-Driven Decisions
 
-Power analysis is used to evaluate whether the experiment was capable of detecting
-meaningful effects. Due to the large sample size, power was estimated using
-**bootstrap simulations on summary statistics** (mean, variance, sample size) rather
-than raw observations.
+A global **Confidence Score** (Bayesian posterior probability) is surfaced persistently across the app.
 
-This approach:
-- Accurately approximates the sampling distribution of the mean
-- Remains statistically valid under large-sample conditions
-- Keeps computation tractable for practical experimentation workflows
+Visual semantics adapt to confidence:
+- Strong posterior → green emphasis  
+- Uncertain results → neutral/amber cues  
 
-Minimum Detectable Effect (MDE) estimates help distinguish between
-*true null effects* and *insufficient experimental sensitivity*.
+This reinforces **decision confidence**, not just statistical significance.
 
 ---
 
-### Sequential Testing & Peeking Bias
+## ♿ Accessibility & Engineering Discipline
 
-Real-world experiments are often monitored continuously. To demonstrate the risks of
-this practice, **peeking bias** was simulated by repeatedly evaluating test statistics
-under the null hypothesis.
+The dashboard includes:
+- WCAG-compliant contrast tuning  
+- Keyboard-navigable sidebar  
+- Screen-reader-aware modals  
+- Color-blind-safe chart encodings  
 
-Results show that repeated interim testing without correction can dramatically inflate
-Type-I error rates, leading to false discoveries.
-
-This highlights the importance of:
-- Predefined stopping rules
-- Fixed-horizon tests
-- Interpreting results in the context of experimental governance
+These choices reflect **production engineering standards**, not portfolio shortcuts.
 
 ---
 
-### Causal Interpretation & Limitations
+## 🧪 What This Project Demonstrates
 
-Randomized assignment allows estimation of the **average causal effect** of gate
-placement under standard assumptions (randomization, SUTVA, consistent measurement).
-However, results are subject to limitations such as:
+- Sound experimental design  
+- Proper uncertainty quantification  
+- Bayesian reasoning  
+- Awareness of peeking bias  
+- Product-oriented communication  
+- Modern analytics UI design  
+- Accessibility and UX maturity  
 
-- Survivorship and dilution effects (not all users reach the gate)
-- External validity constraints (results may not generalize across games or cohorts)
-
-Conclusions are therefore framed conservatively, with clear boundaries on what the
-experiment can and cannot establish.
-
----
-
-### Summary
-
-By combining **frequentist inference**, **Bayesian reasoning**, **power analysis**, and
-**experiment design diagnostics**, this project demonstrates how statistically sound
-and practically scalable A/B testing should be conducted in production environments.
-
-The emphasis throughout is on:
-- Effect sizes over p-values
-- Uncertainty over point estimates
-- Decision quality over mechanical testing
+This is not a “model accuracy” project — it is a **decision-making system**.
 
 ---
 
-## 📁 Repository Structure
-```text
-Mobile-Games-AB-Testing/
-│
-├── data/
-│   └── cookie_cats.csv
-├── src/
-│   └── statistics.py
-├── notebooks/
-│   └── ab_testing_analysis.ipynb
-├── figures/
-│   └── *.png
-├── README.md
-├── requirements.txt
-├── .gitignore
-└── LICENSE
-```
-
----
-
-## ▶️ How to Run
+## 🚀 How to Run
 
 ```bash
-git clone https://github.com/pankrulez/Mobile-Games-AB-Testing.git
-
-cd Mobile-Games-AB-Testing
-
-pip install -r requirements.txt
-
-python run_analysis.py
+cd web
+npm install
+npm run dev
 ```
 
----
-
-## 🚀 Tools & Techniques
-
-- Python (NumPy, Pandas, Matplotlib, Seaborn)
-
-- Bootstrap Resampling
-
-- Permutation Testing
-
-- Exploratory Data Analysis
+The dashboard consumes precomputed results to ensure fast, deterministic rendering.
 
 ---
 
-## 📌 What This Project Demonstrates
-- Hypothesis-driven experimentation
-- Assumption-aware statistical testing
-- Effect size & uncertainty quantification
-- Power analysis & experiment design
-- Sequential testing awareness
-- Bayesian and frequentist inference
-- Causal reasoning & limitations
-- Reproducible, production-quality analysis
+## 📎 Notes
 
----
+- Tabs render only when data exists — no placeholders.
 
-## Live Demo (Dashboard Branch)
+- No fake monetization or segmentation metrics are included.
 
-This repository includes a production-style dashboard built with Next.js
-to visualize precomputed experimental results.
+- All numbers in the UI are defensible and traceable to analysis code.
 
-👉 Demo: https://your-vercel-url.vercel.app  
-👉 Source: `dashboard-vercel` branch
----
+## 📬 Author
 
-**Author**: Pankaj 
+Pankaj Kapri
 
-**Dataset Source**: Kaggle
+Data Science & Product Analytics
