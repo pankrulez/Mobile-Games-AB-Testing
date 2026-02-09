@@ -9,6 +9,7 @@ import MetricCard from "@/components/MetricCard";
 import KpiCard from "@/components/KpiCard";
 import MethodsModal from "@/components/MethodsModal";
 import DiffBarChart from "@/components/DiffBarChart";
+import darkSystemTheme from "@/lib/echartsTheme";
 
 import results from "@/data/results.json";
 
@@ -75,26 +76,22 @@ export default function Home() {
           {/* KPIs */}
           <section className="mb-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <KpiCard
-              label="Control Retention"
+              title="Control Retention"
               value={`${(metric.control_rate * 100).toFixed(1)}%`}
-              accent="indigo"
             />
             <KpiCard
-              label="Treatment Retention"
+              title="Treatment Retention"
               value={`${(metric.treatment_rate * 100).toFixed(1)}%`}
-              accent="emerald"
             />
             <KpiCard
-              label="Absolute Lift"
+              title="Absolute Lift"
               value={`+${(metric.effect_size * 100).toFixed(2)}%`}
-              sub="Treatment − Control"
-              accent="emerald"
+              delta="Treatment − Control"
             />
             <KpiCard
-              label="Bayesian Confidence"
+              title="Bayesian Confidence"
               value={`${(metric.bayesian_prob * 100).toFixed(1)}%`}
-              sub="P(Treatment > Control)"
-              accent="indigo"
+              delta="P(Treatment > Control)"
             />
           </section>
 
