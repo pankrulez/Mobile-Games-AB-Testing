@@ -1,19 +1,12 @@
 import "./globals.css";
+import Sidebar from "@/components/Sidebar";
 
-export const metadata = {
-  title: "Mobile Games A/B Testing",
-  description: "Experiment results & statistical analysis"
-};
-
-export default function RootLayout({
-  children
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-slate-200 text-slate-900 antialiased">
-        {children}
+      <body className="flex">
+        <Sidebar />
+        <main className="flex-1 px-10 py-8">{children}</main>
       </body>
     </html>
   );
