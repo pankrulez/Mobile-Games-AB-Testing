@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================= */
-/* Design Tokens (GAMEPULSE)     */
-/* ============================= */
-
 :root {
   --bg-main: #070b16;
   --bg-panel: #0c1222;
@@ -19,32 +15,28 @@
   --accent-green: #34d399;
   --accent-pink: #f472b6;
 
-  --border-soft: rgba(255, 255, 255, 0.12);
+  --border-soft: rgba(255,255,255,0.12);
 }
 
-/* ============================= */
-/* Global Base Styles            */
-/* ============================= */
-
-html,
-body {
+html, body {
   background-color: var(--bg-main);
   color: var(--text-primary);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  height: 100%;
 }
 
-/* ============================= */
-/* Reusable UI Primitives        */
-/* ============================= */
-
+/* Card primitives */
 .card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-soft);
   border-radius: 1rem;
 }
 
+.card-equal {
+  min-height: 160px;
+}
+
+/* Typography */
 .heading-xl {
   font-size: 2.25rem;
   font-weight: 800;
@@ -60,9 +52,4 @@ body {
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--text-secondary);
-}
-
-.caption {
-  font-size: 0.75rem;
-  color: var(--text-muted);
 }

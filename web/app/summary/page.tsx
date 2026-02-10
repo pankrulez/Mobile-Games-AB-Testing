@@ -2,10 +2,13 @@ import BayesianValidationCard from "@/components/BayesianValidationCard";
 
 export default function SummaryPage() {
   return (
-    <section>
-      <h1 className="heading-xl mb-2">STATISTICAL_JOURNEY</h1>
-      <p className="body mb-10">
-        End-to-end experiment design and inference
+    <section className="pb-12">
+      <h1 className="heading-xl mb-2">
+        STATISTICAL_JOURNEY
+      </h1>
+      <p className="body mb-10 max-w-3xl">
+        End-to-end reasoning behind the experiment design,
+        statistical validation, and final recommendation.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

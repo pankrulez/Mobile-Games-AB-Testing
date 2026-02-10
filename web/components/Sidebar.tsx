@@ -8,8 +8,12 @@ export default function Sidebar() {
   const path = usePathname();
 
   return (
-    <aside className="w-64 min-h-screen bg-[var(--bg-panel)]
-                      border-r border-white/10 px-6 py-8">
+    <aside
+      className="w-64 h-screen sticky top-0
+                 bg-[var(--bg-panel)]
+                 border-r border-white/10
+                 px-6 py-8 flex flex-col"
+    >
       {/* Brand */}
       <div className="mb-10">
         <h2 className="text-lg font-bold tracking-wide">
@@ -21,8 +25,8 @@ export default function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="space-y-2">
-        {tabs.map((tab) => (
+      <nav className="space-y-2 flex-1">
+        {tabs.map(tab => (
           <Link
             key={tab.href}
             href={tab.href}
@@ -38,8 +42,8 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* Active Test */}
-      <div className="mt-10 rounded-xl border border-white/10 p-4">
+      {/* Footer */}
+      <div className="mt-6 rounded-xl border border-white/10 p-4">
         <p className="text-xs text-[var(--text-muted)] mb-1">
           ACTIVE TEST
         </p>
