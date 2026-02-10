@@ -3,10 +3,6 @@
 
 ---
 
-> **Live Dashboard (UI Upgrade):** The `dashboard-vercel` branch contains a production-grade, interactive analytics UI (tab-based narrative flow, ECharts visualizations, accessibility tuning) deployed on Vercel: https://mobile-games-ab-dashboard.vercel.app/
-
----
-
 ## 📌 Project Overview
 This project analyzes the impact of **moving a progression gate from level 30 to level 40** in a mobile game using a randomized A/B experiment.
 
