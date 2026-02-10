@@ -1,5 +1,9 @@
 # 🎮 Mobile Games A/B Testing — Statistical Analysis
 
+> **Live Dashboard (UI Upgrade):** The `dashboard-vercel` branch contains a production-grade, interactive analytics UI (tab-based narrative flow, ECharts visualizations, accessibility tuning) deployed on Vercel: https://mobile-games-ab-dashboard.vercel.app/
+
+---
+
 ## 📌 Project Overview
 This project analyzes an **A/B experiment conducted in a mobile game** to determine whether moving an in-game gate from **level 30 (Control)** to **level 40 (Treatment)** impacts player engagement and retention.
 
