@@ -68,6 +68,24 @@ export default function MethodsModal({
           </p>
         </div>
 
+        <div className="card p-6 max-w-xl">
+          <h2 className="heading-md mb-2">
+            Why multiple statistical methods are used
+          </h2>
+
+          <p className="body mb-6">
+            No single statistical method fully captures uncertainty in behavioral
+            experiments. Using multiple approaches helps validate that observed
+            effects are not artifacts of a specific test choice.
+          </p>
+
+          <ul className="body space-y-2">
+            <li>• Bootstrap intervals quantify variability without assumptions</li>
+            <li>• Permutation tests validate significance through randomization</li>
+            <li>• Bayesian inference provides intuitive probability statements</li>
+          </ul>
+        </div>
+
         <div className="mt-6 flex justify-end">
           <button
             onClick={onClose}

@@ -17,61 +17,61 @@ export default function RetentionPage() {
   return (
     <section>
       <h1 className="text-4xl font-extrabold mb-2">
-        RETENTION_DYNAMICS
+        RETENTION_ANALYSIS
       </h1>
       <p className="text-[var(--text-secondary)] mb-10">
-        Cohort behavior analysis / first 7 days
+        This tab explores how retention evolves over time and how uncertainty
+        around lift is quantified using resampling-based and Bayesian methods.
       </p>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Chart */}
-        <div className="card p-6 lg:col-span-2">
-          <h2 className="text-sm font-semibold mb-4">
-            DAILY_RELATIVE_PERFORMANCE_LIFT
-          </h2>
-          <RetentionLiftChart data={liftData} />
-        </div>
+      {/* Why this analysis */}
+      <div className="card p-6 max-w-3xl mb-8">
+        <h2 className="heading-md mb-2">
+          Why retention is analyzed this way
+        </h2>
+        <p className="body">
+          Retention is binary at the user level and often exhibits skewed
+          distributions. To avoid strong parametric assumptions, bootstrap
+          and Bayesian approaches are used to capture uncertainty more
+          realistically.
+        </p>
+      </div>
 
-        {/* Retention trajectory */}
-        <div className="card p-6 mt-10">
-          <h2 className="text-sm font-semibold mb-4">
-            RETENTION_TRAJECTORY
-          </h2>
+      {/* Lift chart */}
+      <div className="card p-6 mb-10">
+        <h2 className="heading-md mb-4">
+          Daily retention lift
+        </h2>
+        <RetentionLiftChart data={liftData} />
+        <p className="body mt-4 max-w-3xl">
+          Positive lift is observed across all days, with confidence intervals
+          remaining above zero for most of the observation window.
+        </p>
+      </div>
 
-          <RetentionTrajectoryChart />
+      {/* Trajectory chart */}
+      <div className="card p-6 mb-10">
+        <h2 className="heading-md mb-4">
+          Retention trajectory
+        </h2>
+        <RetentionTrajectoryChart />
+        <p className="body mt-4 max-w-3xl">
+          Divergence between control and treatment increases after Day 3,
+          suggesting the effect is driven by sustained engagement rather than
+          short-term novelty.
+        </p>
+      </div>
 
-          <p className="mt-3 text-xs text-[var(--text-secondary)]">
-            Treatment shows sustained retention advantage across the first 7 days,
-            with divergence increasing after Day 3.
-          </p>
-        </div>
-
-        {/* Callouts */}
-        <div className="space-y-6">
-          <div className="card p-6 border border-[var(--accent-green)]/40">
-            <p className="text-xs text-[var(--accent-green)] mb-1">
-              TOP PERFORMANCE
-            </p>
-            <div className="text-3xl font-bold">
-              Day 7
-            </div>
-            <p className="text-sm text-[var(--text-secondary)]">
-              +25.8% lift
-            </p>
-          </div>
-
-          <div className="card p-6 border border-[var(--accent-blue)]/40">
-            <p className="text-xs text-[var(--accent-blue)] mb-1">
-              INITIAL HOOK
-            </p>
-            <div className="text-3xl font-bold">
-              Day 1
-            </div>
-            <p className="text-sm text-[var(--text-secondary)]">
-              +6.3% lift
-            </p>
-          </div>
-        </div>
+      {/* Limitations */}
+      <div className="card p-6 max-w-3xl">
+        <h2 className="heading-md mb-2">
+          Scope and limitations
+        </h2>
+        <p className="body">
+          This analysis focuses exclusively on retention outcomes. Monetization
+          and long-term churn effects are intentionally excluded to avoid
+          drawing conclusions beyond the available data.
+        </p>
       </div>
     </section>
   );

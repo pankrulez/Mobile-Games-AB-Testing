@@ -7,8 +7,10 @@ export default function SummaryPage() {
         STATISTICAL_JOURNEY
       </h1>
       <p className="body mb-10 max-w-3xl">
-        End-to-end reasoning behind the experiment design,
-        statistical validation, and final recommendation.
+        This project evaluates whether delaying a progression gate from
+        level 30 to level 40 improves early player retention in a mobile game.
+        The analysis focuses on decision reliability rather than isolated
+        statistical significance.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -63,6 +65,45 @@ export default function SummaryPage() {
           <p className="text-sm text-[var(--text-secondary)]">
             Ship the updated gate placement while monitoring long-term retention
             decay and monetization impact in follow-up experiments.
+          </p>
+        </div>
+
+          {/* How to read */}
+        <div className="card p-6 mb-6">
+          <h2 className="heading-md mb-2">
+            How to read this experiment
+          </h2>
+          <p className="body">
+            Instead of relying on a single hypothesis test, results are assessed
+            using multiple complementary statistical approaches. This reduces
+            false confidence and better reflects how real product decisions are
+            made under uncertainty.
+          </p>
+        </div>
+
+        {/* Methods overview */}
+        <div className="card p-6 mb-6">
+          <h2 className="heading-md mb-2">
+            Methods used
+          </h2>
+          <p className="body">
+            Bootstrap confidence intervals quantify uncertainty without
+            distributional assumptions. Permutation testing validates statistical
+            significance through label randomization. Bayesian inference provides
+            a direct probability that the treatment outperforms control.
+          </p>
+        </div>
+
+        {/* Decision framing */}
+        <div className="card p-6">
+          <h2 className="heading-md mb-2">
+            Decision framing
+          </h2>
+          <p className="body">
+            If run in production, these results would support rolling out the
+            treatment to all users, with continued monitoring for longer-term
+            retention effects. Remaining uncertainty lies primarily beyond the
+            seven-day window.
           </p>
         </div>
 
